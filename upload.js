@@ -13,7 +13,8 @@ const upload = multer({
       cb(null, {fieldName: file.fieldname});
     },
     key: function (req, file, cb) {
-      cb(null, Date.now().toString())
+      const folder = req.body.folder || '';
+      cb(null, `${folder}/${Date.now().toString()}`);
     }
   })
 });
