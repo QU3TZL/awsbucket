@@ -7,22 +7,26 @@ const app = express();
 
 app.use(fileUpload());
 
-app.post('/upload', (req, res) => {
+app.post('/upload/:folder', (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send('No files were uploaded.');
   }
 
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   let sampleFile = req.files.sampleFile;
+  let folder = req.params.folder;
 
-  sampleFile.mv('/path/to/local/file', function(err) {
+  // Use the mv() method to place the file somewhere on your server
+  sampleFile.mv(`/tmp/${sampleFile.name}`, function(err) {
     if (err)
       return res.status(500).send(err);
 
-    scpClient.scp('/path/to/local/file', {
+    // After the file is saved locally, transfer it to the Render disk
+    scpClient.scp(`/tmp/${sampleFile.name}`, {
       host: config.render.host,
       username: config.render.username,
       password: config.render.password,
-      path: config.render.path + 'myfile'
+      path: `${config.render.diskPath}/${folder}/${sampleFile.name}`
     }, function(err) {
       if (err) {
         console.log(err);
