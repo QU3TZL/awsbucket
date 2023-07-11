@@ -1,7 +1,7 @@
 {
-  "name": "file-upload-server",
+  "name": "filepond-server",
   "version": "1.0.0",
-  "description": "A server-side solution for handling file uploads from FilePond and transferring them to a Render disk.",
+  "description": "Server-side component for FilePond file uploads",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
