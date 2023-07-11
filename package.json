@@ -1,16 +1,14 @@
 {
-  "name": "filepond-s3-upload",
+  "name": "file-upload-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "A server-side solution for handling file uploads from FilePond and transferring them to a Render disk.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "aws-sdk": "^2.1031.0",
     "express": "^4.17.1",
-    "multer": "^1.4.4",
-    "multer-s3": "^2.9.0",
-    "cors": "^2.8.5"
+    "express-fileupload": "^1.2.1",
+    "scp2": "^0.5.0"
   }
 }
