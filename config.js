@@ -1,8 +1,8 @@
 module.exports = {
   render: {
-    host: 'ssh.YOUR_REGION.render.com',
-    username: 'YOUR_SERVICE',
-    password: 'YOUR_PASSWORD',
-    path: '/mnt/mydisk/'
+    host: process.env.RENDER_HOST,
+    username: process.env.RENDER_USERNAME,
+    password: process.env.RENDER_PASSWORD,
+    diskPath: '/docs/user1/fold1'
   }
 };
