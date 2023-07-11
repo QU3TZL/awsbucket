@@ -1,9 +1,8 @@
-const AWS = require('aws-sdk');
-
-AWS.config.update({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION
-});
-
-module.exports = AWS;
+module.exports = {
+  render: {
+    host: 'ssh.YOUR_REGION.render.com',
+    username: 'YOUR_SERVICE',
+    password: 'YOUR_PASSWORD',
+    path: '/mnt/mydisk/'
+  }
+};
