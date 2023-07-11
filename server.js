@@ -1,6 +1,7 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const scpClient = require('scp2');
+const config = require('./config');
 
 const app = express();
 
@@ -11,20 +12,17 @@ app.post('/upload', (req, res) => {
     return res.status(400).send('No files were uploaded.');
   }
 
-  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   let sampleFile = req.files.sampleFile;
 
-  // Use the mv() method to place the file somewhere on your server
   sampleFile.mv('/path/to/local/file', function(err) {
     if (err)
       return res.status(500).send(err);
 
-    // After the file is saved locally, transfer it to the Render disk
     scpClient.scp('/path/to/local/file', {
-      host: 'ssh.YOUR_REGION.render.com',
-      username: 'YOUR_SERVICE',
-      password: 'YOUR_PASSWORD',
-      path: '/destination/path/for/remote/file'
+      host: config.render.host,
+      username: config.render.username,
+      password: config.render.password,
+      path: config.render.path + 'myfile'
     }, function(err) {
       if (err) {
         console.log(err);
