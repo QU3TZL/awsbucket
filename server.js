@@ -13,7 +13,7 @@ app.post('/upload/:folder', async (req, res) => {
   }
 
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-  let sampleFile = req.files.sampleFile;
+  let sampleFile = req.files.filepond;
   let folder = req.params.folder;
 
   // Use the mv() method to place the file somewhere on your server
