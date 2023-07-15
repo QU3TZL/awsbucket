@@ -1,8 +1,8 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const SftpClient = require('ssh2-sftp-client');
-const fs = require('fs');
 const config = require('./config');
+const fs = require('fs');
 
 const app = express();
 
@@ -24,8 +24,9 @@ app.post('/upload/:folder', async (req, res) => {
     try {
       await sftp.connect({
         host: config.render.host,
+        port: config.render.port || 22, // Use the SSH port or default to 22
         username: config.render.username,
-        privateKey: Buffer.from(process.env.PRIVATE_KEY_BASE64, 'base64').toString('ascii') // Decode the base64 private key
+        privateKey: fs.readFileSync(process.env.PRIVATE_KEY_PATH, 'utf8')
       });
       await sftp.mkdir(`${config.render.diskPath}/${folder}`, true);
       await sftp.put(`/tmp/${sampleFile.name}`, `${config.render.diskPath}/${folder}/${sampleFile.name}`);
