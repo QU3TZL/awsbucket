@@ -25,7 +25,7 @@ app.post('/upload/:folder', async (req, res) => {
       await sftp.connect({
         host: config.render.host,
         username: config.render.username,
-        privateKey: fs.readFileSync(process.env.PRIVATE_KEY_PATH) // Read the private key from the path specified in the environment variable
+        privateKey: Buffer.from(process.env.PRIVATE_KEY_BASE64, 'base64').toString('ascii') // Decode the base64 private key
       });
       await sftp.mkdir(`${config.render.diskPath}/${folder}`, true);
       await sftp.put(`/tmp/${sampleFile.name}`, `${config.render.diskPath}/${folder}/${sampleFile.name}`);
